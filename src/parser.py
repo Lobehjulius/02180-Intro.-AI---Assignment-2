@@ -1,17 +1,23 @@
-from node import Atom, Not, And, Or, Imp, Iff
+from typing import Optional
 import re
 
+from node import Atom, Not, And, Or, Imp, Iff
 
-TOKEN_RE = re.compile(r"\s*(<->|->|[()~&|]|[A-Za-z0-9_]*)")
+
+TOKEN_RE = re.compile(r"\s*(<->|->|[()~&|]|[A-Za-z][A-Za-z0-9_]*)")
 
 def tokenize(text: str) -> list[str]:
     pos = 0
     tokens = []
 
-    while pos <len(text):
+    while pos < len(text):
         match = TOKEN_RE.match(text,pos)
         if not match:
             raise SyntaxError(f"Unexpected character at position {pos}: {text[pos]!r}")
+        
+        if match.end() == pos:
+            raise SyntaxError(f"Tokenizer got stuck at position {pos}: {text[pos]!r}")
+        
         token = match.group(1)
         if token: 
             tokens.append(token)
@@ -24,7 +30,7 @@ class Parser:
         self.tokens = tokens
         self.pos = 0
 
-    def peek(self) -> str:
+    def peek(self) -> Optional[str]:
         return self.tokens[self.pos] if self.pos < len(self.tokens) else None
     
     def consume(self, expected = None):
