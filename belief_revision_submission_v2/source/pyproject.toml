@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "belief-revision-assignment"
+version = "0.2.0"
+description = "Simple belief revision engine for propositional logic and the optional Mastermind task"
+readme = "README.md"
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["belief_revision*"]
