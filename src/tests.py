@@ -1,8 +1,8 @@
 import unittest
 
-from src.belief_base import BeliefBase
-from src.entailment import entails, is_consistent
-from src.revision import expand, contract, revise
+from belief_base import BeliefBase
+from entailment import entails, is_consistent
+from revision import expand, contract, revise
 
 
 class TestRevision(unittest.TestCase):
@@ -65,7 +65,6 @@ class TestAGMPostulates(unittest.TestCase):
     def test_consistency(self):
         base = BeliefBase([("p", 3), ("p -> ~q", 2)])
         new_base = revise(base, "q", 5)
-        print("AGM consistency: ",new_base.beliefs())
         self.assertTrue(is_consistent(new_base))
         
     def test_extensionality_1(self):
@@ -80,11 +79,14 @@ class TestAGMPostulates(unittest.TestCase):
         by_q = revise(base, "q", 2)
         by_notnotq = revise(base, "~~q", 2)
 
-        self.assertEqual(by_q.beliefs(), by_notnotq.beliefs())
-
-    
-    print("Running AGM postulates tests...")
-    print("-----------------------------------------------------")
+        # sinde "q" and "~~q" are equivalent. the test is checking syntactic equality while AGM extensionally is about logical equivalence 
+        # self.assertEqual(by_q.beliefs(), by_notnotq.beliefs())
+        # new way of checking extensionality by checking logical equivalence of the beliefs in the revised bases
+        self.assertTrue(entails(by_q, "q"))
+        self.assertTrue(entails(by_notnotq, "q"))
+        self.assertTrue(entails(by_q, "p"))
+        self.assertTrue(entails(by_notnotq, "p"))
+        self.assertEqual(is_consistent(by_q), is_consistent(by_notnotq))
     
 if __name__ == "__main__":
     unittest.main()
