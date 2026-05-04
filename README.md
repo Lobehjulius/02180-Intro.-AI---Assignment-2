@@ -12,6 +12,7 @@ The project models a finite propositional belief base with priorities and implem
 - revision via Levi identity
 - unit tests, including AGM-style test cases
 
+<!-- 
 ## Approach
 
 The implementation follows a belief-base approach rather than a deductively closed belief-set approach.
@@ -25,7 +26,7 @@ The implementation follows a belief-base approach rather than a deductively clos
 ```text
 revise(B, phi) = expand(contract(B, not phi), phi)
 ```
-
+-->
 ## Project Structure
 
 ```text
@@ -42,6 +43,7 @@ src/
   tests.py            Unit tests and AGM-style tests
 ```
 
+<!-- 
 ## Main Data Model
 
 The belief base is represented as a finite collection of prioritized formulas:
@@ -58,7 +60,7 @@ where:
 Higher priority means the belief is preferred for retention during contraction.
 
 The implementation is not deductively closed. A formula is accepted only if it is entailed by the stored base.
-
+-->
 ## Running The Project
 
 ### General demo
@@ -110,7 +112,7 @@ To run tests in verbose mode, change into the `src` directory and run:
 cd src
 python -m unittest -v tests
 ```
-
+<!-- 
 ## Example
 
 Consider the belief base:
@@ -142,3 +144,4 @@ These tradeoffs are acceptable for a course assignment and make the implementati
 ## Authors
 
 DTU 02180 Introduction to Artificial Intelligence Assignment 2 project group.
+-->

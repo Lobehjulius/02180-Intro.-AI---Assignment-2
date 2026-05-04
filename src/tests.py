@@ -79,8 +79,8 @@ class TestAGMPostulates(unittest.TestCase):
         by_q = revise(base, "q", 2)
         by_notnotq = revise(base, "~~q", 2)
 
-        # sinde "q" and "~~q" are equivalent. the test is checking syntactic equality while AGM extensionally is about logical equivalence 
-        # self.assertEqual(by_q.beliefs(), by_notnotq.beliefs())
+        # since "q" and "~~q" are equivalent. The test is checking syntactic equality while AGM extensionally is about logical equivalence 
+        # self.assertEqual(by_q.beliefs(), by_notnotq.beliefs()) -> fails
         # new way of checking extensionality by checking logical equivalence of the beliefs in the revised bases
         self.assertTrue(entails(by_q, "q"))
         self.assertTrue(entails(by_notnotq, "q"))
